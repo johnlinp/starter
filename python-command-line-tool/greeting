@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
+import logging
+
+
+class Greeting:
+    @staticmethod
+    def parse_args():
+        parser = argparse.ArgumentParser(description='Say hello to a friend.')
+
+        parser.add_argument('name', help='The name to greet')
+        parser.add_argument('--loud', '-l', action='store_true', help='Whether you want to make it loud')
+        parser.add_argument('--times', '-t', type=int, default=1, help='How many times do you like to greet')
+        parser.add_argument('--mode', '-m', choices=['normal', 'question', 'exclaim'], help='Greet with special mode')
+        parser.add_argument('--prefix', '-p', action='append', help='Greet with prefix, can specify multiple times')
+
+        return parser.parse_args()
+
+    @staticmethod
+    def run(args):
+        logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
+
+        Greeting._check_args(args)
+
+        prefix = ''
+        hello = 'Hello'
+        name = args.name
+
+        if args.prefix:
+            for p in args.prefix:
+                prefix += f'{p}. '
+
+        if args.loud:
+            prefix = prefix.upper()
+            hello = hello.upper()
+            name = name.upper()
+
+        msg = f'{prefix}{hello}, {name}.'
+
+        if args.mode == 'question':
+            msg = msg.replace('.', '?')
+        elif args.mode == 'exclaim':
+            msg = msg.replace('.', '!')
+
+        for _ in range(args.times):
+            print(msg)
+
+    @staticmethod
+    def _check_args(args):
+        if args.name == '':
+            raise Error('name should not be empty')
+        if args.times < 0:
+            raise Error('times should be larger than 0')
+
+
+class Error(Exception):
+    pass
+
+
+def main():
+    args = Greeting.parse_args()
+    Greeting.run(args)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+        sys.exit(0)
+    except Error as e:
+        logging.error(e)
+        sys.exit(1)

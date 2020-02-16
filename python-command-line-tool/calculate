@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
+import logging
+
+
+class Calculate:
+    @staticmethod
+    def parse_args():
+        parser = argparse.ArgumentParser(description='Simple calculator.')
+
+        subparsers = parser.add_subparsers(dest='operation')
+
+        add = subparsers.add_parser('add')
+        add.add_argument('first', type=float, help='The first number for adding')
+        add.add_argument('second', type=float, help='The second number for adding')
+
+        minus = subparsers.add_parser('minus')
+        minus.add_argument('first', type=float, help='The first number for minusing')
+        minus.add_argument('second', type=float, help='The second number for minusing')
+
+        square = subparsers.add_parser('square')
+        square.add_argument('num', type=float, help='The number for squaring')
+
+        args = parser.parse_args()
+
+        if args.operation is None:
+            parser.print_help()
+            parser.exit(1)
+
+        return args
+
+    @staticmethod
+    def run(args):
+        logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
+
+        if args.operation == 'add':
+            result = args.first + args.second
+        elif args.operation == 'minus':
+            result = args.first - args.second
+        elif args.operation == 'square':
+            result = args.num ** 2
+
+        print('{0:g}'.format(result))
+
+
+class Error(Exception):
+    pass
+
+
+def main():
+    args = Calculate.parse_args()
+    Calculate.run(args)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+        sys.exit(0)
+    except Error as e:
+        logging.error(e)
+        sys.exit(1)
