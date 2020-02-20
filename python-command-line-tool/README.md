@@ -24,6 +24,11 @@ $ ./greeting --mode exclaim John
 Hello, John!
 $ ./greeting --prefix Oh --prefix Hey John
 Oh. Hey. Hello, John.
+$ ./greeting --verbose John
+DEBUG: check args done
+DEBUG: begin to print
+Hello, John.
+DEBUG: shutting down
 ```
 
 

@@ -15,14 +15,17 @@ class Greeting:
         parser.add_argument('--times', '-t', type=int, default=1, help='How many times do you like to greet')
         parser.add_argument('--mode', '-m', choices=['normal', 'question', 'exclaim'], help='Greet with special mode')
         parser.add_argument('--prefix', '-p', action='append', help='Greet with prefix, can specify multiple times')
+        parser.add_argument('--verbose', '-v', action='store_true', help='When you want to debug')
 
         return parser.parse_args()
 
     @staticmethod
     def run(args):
-        logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
+        Greeting._config_logging(args.verbose)
 
         Greeting._check_args(args)
+
+        logging.debug('check args done')
 
         prefix = ''
         hello = 'Hello'
@@ -44,8 +47,12 @@ class Greeting:
         elif args.mode == 'exclaim':
             msg = msg.replace('.', '!')
 
+        logging.debug('begin to print')
+
         for _ in range(args.times):
             print(msg)
+
+        logging.debug('shutting down')
 
     @staticmethod
     def _check_args(args):
@@ -53,6 +60,12 @@ class Greeting:
             raise Error('name should not be empty')
         if args.times < 0:
             raise Error('times should be larger than 0')
+
+    @staticmethod
+    def _config_logging(verbose):
+        log_level = logging.DEBUG if verbose else logging.INFO
+        log_format = '%(levelname)s: %(message)s'
+        logging.basicConfig(level=log_level, format=log_format)
 
 
 class Error(Exception):
