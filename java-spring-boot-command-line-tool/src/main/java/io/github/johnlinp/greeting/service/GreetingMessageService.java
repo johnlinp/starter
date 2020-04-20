@@ -1,13 +1,14 @@
 package io.github.johnlinp.greeting.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GreetingMessageService
 {
-    private static final Logger logger = Logger.getLogger(GreetingMessageService.class);
+    private static final Logger logger = LogManager.getLogger(GreetingMessageService.class);
 
     @Value("${name}")
     private String name;

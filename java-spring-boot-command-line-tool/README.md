@@ -22,15 +22,16 @@ Hello, John.
 Hello, John.
 Hello, John.
 ...
-$ mvn spring-boot:run -Dspring-boot.run.arguments=--verbose=true,--name=John
+$ vim src/main/resources/application.properties # update logging level
+$ mvn spring-boot:run -Dspring-boot.run.arguments=--name=John
 ...
-0 [main] DEBUG io.github.johnlinp.greeting.service.GreetingService  - start greet()
-0 [main] DEBUG io.github.johnlinp.greeting.service.GreetingMessageService  - start generate()
-0 [main] DEBUG io.github.johnlinp.greeting.service.GreetingMessageService  - end generate()
-0 [main] DEBUG io.github.johnlinp.greeting.service.GreetingService  - begin to print
+2020-04-20 10:16:36.597 DEBUG 93384 --- [           main] i.g.j.greeting.service.GreetingService   : start greet()
+2020-04-20 10:16:36.598 DEBUG 93384 --- [           main] i.g.j.g.service.GreetingMessageService   : start generate()
+2020-04-20 10:16:36.598 DEBUG 93384 --- [           main] i.g.j.g.service.GreetingMessageService   : end generate()
+2020-04-20 10:16:36.598 DEBUG 93384 --- [           main] i.g.j.greeting.service.GreetingService   : begin to print
 Welcome to Greeting!
 Hello, John.
-1 [main] DEBUG io.github.johnlinp.greeting.service.GreetingService  - end greet()
+2020-04-20 10:16:36.598 DEBUG 93384 --- [           main] i.g.j.greeting.service.GreetingService   : end greet()
 ...
 ```
 
