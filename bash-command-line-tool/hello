@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ "x$#" != "x1" ]
+then
+    echo "usage: $0 <name>"
+    exit 1
+fi
+
+NAME="$1"
+
+echo Hello "$NAME"
