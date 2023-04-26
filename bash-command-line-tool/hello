@@ -3,6 +3,9 @@
 if [ "x$#" != "x1" ]
 then
     echo "usage: $0 <name>"
+    echo
+    echo "example:"
+    echo "  $0 John"
     exit 1
 fi
 
