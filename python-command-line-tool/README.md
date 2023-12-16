@@ -12,6 +12,8 @@ You can try it with the following commands:
 ```
 $ ./greeting John
 Hello, John.
+$ ./greeting --salute Hi John
+Hi, John.
 $ ./greeting --loud John
 HELLO, JOHN.
 $ ./greeting --times 3 John

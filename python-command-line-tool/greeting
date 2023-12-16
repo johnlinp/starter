@@ -11,6 +11,7 @@ class Greeting:
         parser = argparse.ArgumentParser(description='Say hello to a friend.')
 
         parser.add_argument('name', help='The name to greet')
+        parser.add_argument('--salute', '-s', default='Hello', help='The word to salute, defaults to "Hello"')
         parser.add_argument('--loud', '-l', action='store_true', help='Whether you want to make it loud')
         parser.add_argument('--times', '-t', type=int, default=1, help='How many times do you like to greet')
         parser.add_argument('--mode', '-m', choices=['normal', 'question', 'exclaim'], help='Greet with special mode')
@@ -28,7 +29,7 @@ class Greeting:
         logging.debug('check args done')
 
         prefix = ''
-        hello = 'Hello'
+        hello = args.salute
         name = args.name
 
         if args.prefix:
